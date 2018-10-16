@@ -18,10 +18,8 @@ app.use(express.static('public'))// 配置静态文件地址
 app.use(bodyParser.json()) // 解析 application/json
 app.use(bodyParser.urlencoded({extended: true})) // 解析 application/x-www-form-urlencoded
 
-// 配置mongodb数据库配置
-var MongoClient = require('mongodb').MongoClient
-const DBURL = 'mongodb://localhost:27017'
-const DBNAME = 'productmanage'
+// 封装好的mongodb
+var db = require('./modules/db.js')
 
 // 配置session中间件
 app.use(session({
@@ -68,14 +66,8 @@ app.get('/login', (req, res) => {
 app.post('/do_login', (req, res) => {
     var params = req.body
     params['password'] = md5(params['password']) // 加密
-    MongoClient.connect(DBURL, {useNewUrlParser: true}, (err, client) => {
-        if (err) {
-            console.log(`数据链接失败: ${err}`)
-            return
-        }
-        // 查询数据
-        let db = client.db(DBNAME)
-        db.collection('user').findOne(params).then(result => {
+    db('user').then((cursor) => {
+        cursor.findOne(params).then(result => {
             if (result) {
                 console.log('登录成功')
                 // 保存到session
@@ -100,13 +92,8 @@ app.get('/logout', (req, res) => {
 
 // 商品
 app.get('/product', (req, res) => {
-    MongoClient.connect(DBURL, {useNewUrlParser: true}, (err, client) => {
-        if (err) {
-            console.log(`数据库连接失败: ${err}`)
-            return
-        }
-        let db = client.db(DBNAME)
-        db.collection('product').find().toArray().then(docs => {
+    db('product').then(cursor => {
+        cursor.find().toArray().then(docs => {
             res.render('index', {list: docs})
         })
     })
