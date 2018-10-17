@@ -18,3 +18,7 @@ input[type=file]{
  display: inline !important;
 
 }
+
+.pic {
+    max-width: 50px;
+}

@@ -7,12 +7,10 @@
 <body>
 <!--The content below is only a placeholder and can be replaced.-->
 
-<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="/css/basic.css">
 
 <%- include('public/header.ejs') %>
-
-
 
 <div class="container-fluid">
     <div class="row">
@@ -34,14 +32,13 @@
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive input-form">
-                        <form action="/doAdd" method="post">
+                        <form action="/do_product_add" method="post" enctype="multipart/form-data">
                             <ul>
                                 <li>  商品名称: <input type="text" name="title"/></li>
 
                                 <li>  商品图片: <input type="file" name="pic"/></li>
                                 <li>  商品价格: <input type="text" name="price"/></li>
                                 <li>  商品邮费: <input type="text" name="fee"/></li>
-
                                 <li>
                                     商品描述:
                                     <textarea name="description" id="" cols="60" rows="8"></textarea>
