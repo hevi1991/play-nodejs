@@ -10,13 +10,13 @@
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="/css/basic.css">
 
-<%- include('public/header.ejs') %>
+<%- include('../public/header.ejs') %>
 
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2">
-            <%- include('public/aslideleft.ejs') %>
+            <%- include('../public/aslideleft.ejs') %>
 
         </div>
         <div class="col-sm-10">
@@ -69,8 +69,8 @@
                         <td><%= list[i]['price'] %>元</td>
                         <td><%= list[i]['fee'] %>元</td>
                         <td class="text-center">
-                            <a href="/product_edit/<%=list[i]['_id']%>">修改</a>
-                            <a href="/do_product_delete/<%=list[i]['_id']%>">删除</a>
+                            <a href="/admin/product/edit/<%=list[i]['_id']%>">修改</a>
+                            <a href="/admin/product/delete/<%=list[i]['_id']%>">删除</a>
                         </td>
                     </tr>
                     <% } %>
